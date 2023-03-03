@@ -3,16 +3,29 @@ function verifyGuess(chute) {
     const numero = +chute
 
     if (invalidGuess(numero)) {
-        elementoChute.innerHTML += ' <div> Valor Invalido </div>'
-        return
+
+        if (chute === "Finalizar.") {
+            document.body.innerHTML =
+                `
+                <h2>Game Over!!!</h2>
+                <br>
+                <button id="play-again" class="btn-play"> Play again </button>
+                `
+            document.body.style.backgroundColor = "#1C1C1C";
+        } else {
+            elementoChute.innerHTML += ' <div> Valor Invalido </div>'
+            return
+        }
+
+
     }
 
     if (greaterOrLesser(numero)) {
-       elementoChute.innerHTML += `
+        elementoChute.innerHTML += `
        <div> Valor inválido: o número precisa estar entre ${lowerValue} e ${highestValue}
        </div>
        `
-       return
+        return
     }
 
     if (numero === secretNumber) {
@@ -22,7 +35,7 @@ function verifyGuess(chute) {
 
             <button id="play-again" class="btn-play"> Play again </button>
         `
-    } else if  (numero > secretNumber) {
+    } else if (numero > secretNumber) {
         elementoChute.innerHTML += `
         <div> the secret number is smaller <i class="fa-solid fa-arrow-down"></i></div> 
        `
@@ -44,8 +57,8 @@ function greaterOrLesser(numero) {
 }
 
 // 
-document.body.addEventListener ('click', e => {
-    if(e.target.id == 'play-again') {
+document.body.addEventListener('click', e => {
+    if (e.target.id == 'play-again') {
         window.location.reload()
     }
 })
